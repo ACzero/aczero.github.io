@@ -5,7 +5,7 @@ date:   2015-11-17 20:29:51 +0800
 categories: git
 ---
 
-##场景
+## 场景
 使用rails开发新功能，到了前后端集成的阶段，都在一个branch上工作。前端那边有一段时间没pull代码了，就把我后端的修改拉下来merge，而然前端并不是很熟悉Git,因此我后端的修改莫名的在那次merge中消失了......情况如下:
 ![my situation]({{ site.url }}/assets/2015-11-17_1.png)
 红圈部分就是出问题的那次merge，另一个前端不知道这个情况，提交了代码之后也把这个修改merge了过来，因此现在remote的HEAD已经把我后端这边的修改弃掉了....
@@ -32,7 +32,7 @@ Reverting a merge commit declares that you will never want the tree changes brou
 
 所以我需要撤销M这个地方问题就是parent-number应该选择哪个?在这里，是本地去merge远端分支，因此1代表local，2代表remote，选择的parent会被保留，而另外一个会全部被撤销(包括前面的提交)。毫无疑问，我要保留的是远端的修改，因此使用命令是`git revert -m 2 <commit>`，这样a,b的修改就回来了，而N处的修改就被撤销掉。(可以让前端reset回去，然后再merge一次)
 
-##然而Revert并没有这么简单
+## 然而Revert并没有这么简单
 以下内容译自:[how to revert a faulty merge](https://github.com/git/git/blob/master/Documentation/howto/revert-a-faulty-merge.txt)，稍微有点简化，这篇文章讨论的是撤销不同的分支之间的merge。(跟我遇到的场景略有不同，我是在同一个分支上)
 
 >revert没有按我们想的去工作?
@@ -144,6 +144,6 @@ C和D修复了A和B中存在的bug，赶紧把分支merge到`master`。不幸的
       \         /
        A---B---C
 
-##最后
+## 最后
 
 其实看完之后我发现跟我遇到的情况不相同，不过这种做法还是值得记下来的，对于我这种场景，我认为我的解决方法是正确的，但是或者有更好的解决方法，欢迎指出~~
