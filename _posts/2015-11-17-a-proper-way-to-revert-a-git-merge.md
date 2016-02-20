@@ -7,7 +7,7 @@ categories: git
 
 ## 场景
 使用rails开发新功能，到了前后端集成的阶段，都在一个branch上工作。前端那边有一段时间没pull代码了，就把我后端的修改拉下来merge，而然前端并不是很熟悉Git,因此我后端的修改莫名的在那次merge中消失了......情况如下:
-![my situation]({{ site.url }}/assets/2015-11-17_1.png)
+![my situation]({{ sites }}/assets/2015-11-17/1.png)
 红圈部分就是出问题的那次merge，另一个前端不知道这个情况，提交了代码之后也把这个修改merge了过来，因此现在remote的HEAD已经把我后端这边的修改弃掉了....
 
 > 临时的解决方案
