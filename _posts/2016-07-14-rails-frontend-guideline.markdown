@@ -22,151 +22,151 @@ categories: rails
 ## 一、一点ruby知识
 虽然ruby对程序员很友好，但是有些写法可能会让你感到困惑。
 
-* 变量
+### 变量
 
-	在rails的view中一般只会出现ruby的实例变量，以`@`开头
+在rails的view中一般只会出现ruby的实例变量，以`@`开头
 
-	```ruby
-	@foo = "instance variable"
-	print @foo						#=> "instance variable"
-	```
+{% highlight ruby %}
+@foo = "instance variable"
+print @foo						#=> "instance variable"
+{% endhighlight %}
 
-* 方法
+### 方法
 
-	在ruby中，方法调用可以省略括号，像这样：
+在ruby中，方法调用可以省略括号，像这样：
 
-	```ruby
-	# 下面两种写法是等价的
-	func1("a")
-	func1 "a"
+{% highlight ruby %}
+# 下面两种写法是等价的
+func1("a")
+func1 "a"
 
-	# 多个参数同样也是用,隔开
-	func2("a", "b")
-	func2 "a", "b"
-	```
+# 多个参数同样也是用,隔开
+func2("a", "b")
+func2 "a", "b"
+{% endhighlight %}
 
-	ruby可以给方法传递一个hash，在rails提供的view helper方法中很常见，像这样
+ruby可以给方法传递一个hash，在rails提供的view helper方法中很常见，像这样
 
-	```ruby
-	# ruby中描述hash的两种写法，是等价的，等于传入了一个{ a: 1, b: 2 }的hash
-	func a: 1, b: 2
-	func :a => 1, :b => 2
-	```
+{% highlight ruby %}
+# ruby中描述hash的两种写法，是等价的，等于传入了一个{ a: 1, b: 2 }的hash
+func a: 1, b: 2
+func :a => 1, :b => 2
+{% endhighlight %}
 
-* 字符串插值
+### 字符串插值
 
-	ruby用`#{}`在字符串内插值：
+ruby用`#{}`在字符串内插值：
 
-	```ruby
-	# 双引号才能进行插值(字符串还有其他写法，但是一般在view中不会见到)
-	print "1 + 1 is #{ 1 + 1 }" 		#=> "1 + 1 is 2"
-	```
+{% highlight ruby %}
+# 双引号才能进行插值(字符串还有其他写法，但是一般在view中不会见到)
+print "1 + 1 is #{ 1 + 1 }" 		#=> "1 + 1 is 2"
+{% endhighlight %}
 
 
-* each迭代器
+### each迭代器
 
-	view中也会经常要对数组对象进行迭代，常见的是`each`方法。
+view中也会经常要对数组对象进行迭代，常见的是`each`方法。
 
-	在ruby中，代码块有两种写法：
+在ruby中，代码块有两种写法：
 
-	```ruby
-	{
-	  "This is a block"
-	}
+{% highlight ruby %}
+{
+  "This is a block"
+}
 
-	do
-	  "This is also a block"
-	end
-	```
+do
+  "This is also a block"
+end
+{% endhighlight %}
 
-	`each`方法可以接受一个代码块作为参数，对数组每个元素执行代码块中的代码：
+`each`方法可以接受一个代码块作为参数，对数组每个元素执行代码块中的代码：
 
-	```ruby
-	["a", "b", "c"].each do |i|
-	  # i代表数组每个元素，由代码块指定其名称
-	  print i
-	end
+{% highlight ruby %}
+["a", "b", "c"].each do |i|
+  # i代表数组每个元素，由代码块指定其名称
+  print i
+end
 
-	# 上述代码将输出"abc"
-	```
+# 上述代码将输出"abc"
+{% endhighlight %}
 
-	Hash对象也可以进行迭代：
+Hash对象也可以进行迭代：
 
-	```ruby
-	{a: 1, b: 2}.each do |key, value|
-	  print "key is #{key}, value is #{value}. "
-	end
+{% highlight ruby %}
+{a: 1, b: 2}.each do |key, value|
+  print "key is #{key}, value is #{value}. "
+end
 
-	# 上述代码将输出"key is a, value is 1. key is b, value is 2."
-	```
+# 上述代码将输出"key is a, value is 1. key is b, value is 2."
+{% endhighlight %}
 
 ## 二、erb是什么
 
 目前我们项目的view都使用erb，[erb](http://apidock.com/ruby/ERB)是ruby的模版，当你需要使用根据程序动态生成的文件时(如html)，可以在这些文件中嵌入ruby代码。rails在返回这个html前会先用解析器执行这个文件的ruby代码，并进行替换。view文件中以erb后缀结尾的，rails都会进行解析。比如说我们有这样一个文件example.html.erb：
 
-```erb
+{% highlight erb %}
 <!--解析前-->
 <h1><%= 1 + 1 %></h1>
-```
+{% endhighlight %}
 
 rails返回的html文件
 
-```html
+{% highlight erb %}
 <!--解析后-->
 <h1>2</h1>
-```
+{% endhighlight %}
 
 ## 三、erb标签
 erb在解析是通过这些标签来分辨哪些是需要执行的代码
 
-* `<% "your code here" %>`
+### <% %>标签
 
-	在`<% %>`内的代码会被执行，但不会被输出到文件中，比如：
+在`<% %>`内的代码会被执行，但不会被输出到文件中，比如：
 
-	```erb
-	<!--解析前-->
-	<h1><% @foo = "foo" %></h1>
-	```
+{% highlight erb %}
+<!--解析前-->
+<h1><% @foo = "foo" %></h1>
+{% endhighlight %}
 
-	```erb
-	<!--解析后-->
-	<h1></h1>
-	```
+{% highlight erb %}
+<!--解析后-->
+<h1></h1>
+{% endhighlight %}
 
-	上面例子中，`@foo`确实会被赋值(代码会执行)，解析器删去标签及其内容后就不会做其他事了。
+上面例子中，`@foo`确实会被赋值(代码会执行)，解析器删去标签及其内容后就不会做其他事了。
 
-* `<%= "your code here" %>`
+### <%＝ %>标签
 
-	在`<%= %>`内的代码会被执行，且解析器会将标签即内容替换成执行结果。像之前的例子一样：
+在`<%= %>`内的代码会被执行，且解析器会将标签即内容替换成执行结果。像之前的例子一样：
 
-	```erb
-	<!--解析前-->
-	<h1><%= 1 + 1 %></h1>
-	```
+{% highlight erb %}
+<!--解析前-->
+<h1><%= 1 + 1 %></h1>
+{% endhighlight %}
 
-	```html
-	<!--解析后-->
-	<h1>2</h1>
-	```
+{% highlight html %}
+<!--解析后-->
+<h1>2</h1>
+{% endhighlight %}
 
-* `<%= "your code here" -%>`
+### <%＝ -%>标签
 
-	`<%= -%>`用的比较少，`-`表示该标签结束后不会换行，如：
+`<%= -%>`用的比较少，`-`表示该标签结束后不会换行，如：
 
-	```erb
-	<!--解析前-->
-	<h1><%= "a" -%>
-	<%= "b" %></h1>
-	```
+{% highlight erb %}
+<!--解析前-->
+<h1><%= "a" -%>
+<%= "b" %></h1>
+{% endhighlight %}
 
-	```erb
-	<!--解析后-->
-	<h1>ab</h1>
-	```
+{% highlight erb %}
+<!--解析后-->
+<h1>ab</h1>
+{% endhighlight %}
 
-* `<%# "your code here" %>`
+### <%# %>标签
 
-	`<%# %>`内包含代码也不会执行，作注释使用
+`<%# %>`内包含代码也不会执行，作注释使用
 
 ## 四、view helper方法
 
@@ -188,7 +188,7 @@ global-908e25f4bf641868d8683022a5b62f54.css
 
 Asset Pipeline在打包的时候，会把Rails项目中的这三个目录看作成同一个目录。但是我们放置的时候一般有一下规则：
 
-```bash
+{% highlight bash %}
 # 这个目录用来放置自己编写的js、css等文件
 app/assets/
 
@@ -197,18 +197,18 @@ lib/assets/
 
 # 这个目录用来放置要引入的第三方库
 vendor/assets/
-```
+{% endhighlight %}
 
 要把哪些文件打包到合并之后的js、css文件都是可以自己配置的。下面说的是rails的默认行为，具体配置文件也是可以根据需要配置，但是一般不会。配置文件内容如下：
 
-```javascript
+{% highlight javascript %}
 // 引用js的配置在这里: app/assets/javascripts/application.js
 
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-```
+{% endhighlight %}
 
 这里`require`、`require_tree`是为assets pipeline打包时指定要打包的文件，具体作用为：
 
@@ -240,19 +240,19 @@ vendor/assets/
 
 你也可以不把js、css文件打包到全局文件中。将你的js和css文件目录为`assets/path/to/yourjsfile.js`和`assets/path/to/yourcssfile.css`，在erb文件中这样引用：
 
-```erb
+{% highlight erb %}
 <%= javascript_include_tag 'path/to/yourjsfile.js' %>
 <%= stylesheet_link_tag 'path/to/yourcssfile.css' %>
-```
+{% endhighlight %}
 
 在开发环境的默认配置下，到这一步你就能看到效果，但是要在生产环境上正常运行，你必须将这两个文件也添加到assets pipeline的编译路径中。
 
-```ruby
+{% highlight ruby %}
 # config/initializers/assets.rb
 
 # 在这段中的%w()中加入你的文件路径，以空格隔开
 Rails.application.config.assets.precompile += %w( path/to/yourjsfile.js path/to/yourcssfile.css )
-```
+{% endhighlight %}
 
 ## 最后
 
