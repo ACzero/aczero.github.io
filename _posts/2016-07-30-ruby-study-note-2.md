@@ -4,7 +4,9 @@ title:  "Ruby基础学习小记(二)"
 date:   2016-07-30 15:30:00 +0800
 categories: ruby
 ---
-###1. Ruby中的“===”符号
+
+### 1. Ruby中的“===”符号
+
 Ruby中每个对象都含有`===`方法，不过从意义上来说，`===`跟“相等”没有任何关系。先看看下面的例子:
 
 ```Ruby
@@ -32,11 +34,12 @@ end
 ```
 
 参考链接:
+
 http://stackoverflow.com/questions/3422223/vs-in-ruby
 http://stackoverflow.com/questions/4467538/what-does-the-operator-do-in-ruby
 
+### 2. Ruby中的换行
 
-###2. Ruby中的换行
 Ruby解释器根据换行符插入的位置不同而有不同的处理，下面语句能正确地将`x`和`y`的和赋值给`total`
 
 ```Ruby
@@ -122,12 +125,12 @@ puts getter.call				#=> changed message
 ```
 
 ### 其他
-1. Ruby默认采用ASCII编码，但支持使用其他编码方式。可以在文件的第一行加入**编码注释(coding comment)**:
 
- ```ruby
- # -*- coding: utf-8 -*-
- ```
+Ruby默认采用ASCII编码，但支持使用其他编码方式。可以在文件的第一行加入**编码注释(coding comment)**:
+```ruby
+# -*- coding: utf-8 -*-
+```
+如果文件第一行是**shebang注释**，那**编码注释**放在第二行。
 
- 如果文件第一行是**shebang注释**，那**编码注释**放在第二行。
 
-2. 可以通过`__ENCODING__`获取当前执行的代码的源编码
+可以通过`__ENCODING__`获取当前执行的代码的源编码
