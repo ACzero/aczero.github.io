@@ -21,3 +21,5 @@ kramdown:
   hard_wrap: false
 
 highlighter: rouge
+
+theme: jekyll-theme-cayman
